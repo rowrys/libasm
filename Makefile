@@ -4,6 +4,7 @@ ASM = nasm
 ASMFLAGS = -f elf64
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
+INCLUDES = -I includes/
 SRCS_DIR = srcs/
 OBJ_DIR = .build/
 SOURCES =	$(SRCS_DIR)ft_strlen.asm	\
@@ -27,7 +28,7 @@ $(NAME): make_dir $(OBJS)
 	ar rcs $(NAME) $(OBJS)
 
 $(BIN): make_dir $(OBJS_TEST)
-	$(CC) $(CFLAGS) $(OBJS_TEST) -o $(BIN)
+	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS_TEST) -o $(BIN)
 
 make_dir:
 	@mkdir -p .build/
