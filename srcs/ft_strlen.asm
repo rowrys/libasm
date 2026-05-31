@@ -1,11 +1,11 @@
 bits 64
-global _ft_strlen
+global ft_strlen
 
 section .text
 ;
 ;rdi -> str
 ;
-_ft_strlen:
+ft_strlen:
 	xor eax, eax
 .loop:
 	mov cl, byte [rdi + rax]

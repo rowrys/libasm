@@ -3,7 +3,7 @@ BIN = libasm
 ASM = nasm
 ASMFLAGS = -f elf64
 CC = cc
-CFLAGS = -no-pie -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 SRCS_DIR = srcs/
 OBJ_DIR = .build/
 SOURCES =	$(SRCS_DIR)ft_strlen.asm	\
@@ -13,9 +13,8 @@ SOURCES =	$(SRCS_DIR)ft_strlen.asm	\
 			$(SRCS_DIR)ft_write.asm		\
 			$(SRCS_DIR)ft_read.asm		\
 
-
 SOURCES_TEST =	$(SOURCES)				\
-				$(SRCS_DIR)main.asm
+				main.c
 
 OBJS = $(SOURCES:$(SRCS_DIR)%.asm=$(OBJ_DIR)%.o)
 OBJS_TEST = $(SOURCES_TEST:$(SRCS_DIR)%.asm=$(OBJ_DIR)%.o)

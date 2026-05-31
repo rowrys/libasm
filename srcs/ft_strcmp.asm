@@ -1,12 +1,12 @@
 bits 64
-global _ft_strcmp
+global ft_strcmp
 
 section .text
 ;
 ;rdi -> char *s1
 ;rsi -> char *s2
 ;
-_ft_strcmp:
+ft_strcmp:
 	xor ecx, ecx
 	xor eax, eax
 .loop:

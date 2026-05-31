@@ -1,12 +1,12 @@
 bits 64
-global _ft_strcpy
+global ft_strcpy
 
 section .text
 ;
 ;rdi -> char *dst
 ;rsi -> char *src
 ;
-_ft_strcpy:
+ft_strcpy:
 	xor eax, eax
 .loop:
 	mov cl, byte [rsi + rax]
