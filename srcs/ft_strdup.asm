@@ -7,21 +7,22 @@ extern ft_strcpy
 extern malloc
 
 section .text
+;
+; rdi -> char const *str
+;
 ft_strdup:
-	push rbp
-	mov rbp, rsp
-	sub rsp, 8
-	mov [rsp], rdi
+	push rbx
+	mov rbx, rdi
 	call ft_strlen
 	mov rdi, rax
 	inc rdi
 	call malloc wrt ..plt
 	test rax, rax
-	jz .quit
+	je .alloc_failed
 	mov rdi, rax
-	mov rsi, [rsp]
-	call ft_strcpy
-.quit:
-	add rsp, 8
-	pop rbp
+	mov rsi, rbx
+	pop rbx
+	jmp ft_strcpy
+.alloc_failed
+	pop rbx
 	ret
