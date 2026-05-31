@@ -18,5 +18,6 @@ ft_strcmp:
 	inc rcx
 	jmp .loop
 .quit:
-	sub al, byte [rsi + rcx]
+	movzx ecx, byte [rsi + rcx]
+	sub eax, ecx
 	ret
