@@ -6,12 +6,13 @@ section .text
 ;rdi -> str
 ;
 ft_strlen:
-	xor eax, eax
-.loop:
-	mov cl, byte [rdi + rax]
+	mov rax, rdi
+.loop
+	mov cl, byte [rax]
 	test cl, cl
-	je .quit
+	je .done
 	inc rax
 	jmp .loop
-.quit:
+.done:
+	sub rax, rdi
 	ret
