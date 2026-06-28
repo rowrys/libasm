@@ -23,6 +23,6 @@ ft_strdup:
 	mov rsi, rbx
 	pop rbx
 	jmp ft_strcpy
-.alloc_failed
+.alloc_failed:
 	pop rbx
 	ret
