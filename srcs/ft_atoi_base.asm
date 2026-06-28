@@ -8,18 +8,16 @@ global _start
 %define BUFFER_SIZE 256
 
 section .rodata
-	strr db "100", 0
+	strr db "     -100", 0
 	base db "0123456789ABCDEF", 0
 ;
-;r8 -> 	param 0
-;r9 -> 	param 1
-;r10 ->	sign
-;r11 ->
-;rdx
-;rcx
+;on the stack:
+;	[rsp] = rsi
+;	[rsp + 8] = rdi
+;	[rsp + 16] = buffer[256]
+;	buffer[0] = sign
 ;
 section .text
-
 
 ;
 ;rdi -> str
@@ -70,12 +68,38 @@ ft_atoi_base:
 	inc rcx
 	jmp .loopInitBuffer
 .endLoopInitBuffer:
-	cmp rcx, 2
+	cmp rcx, 2			; check if lenght of base is greater than 1 otherwise jmp .error
 	jb .error
-	xor eax, eax
+.loopSkipWhiteSpace:
+	mov al, byte [rdi]
+
+	; check whitespace
+	cmp al, ' '
+	je .loopSkipWhiteSpaceInc
+	sub al, 9		; 9 <= whitespace <= 13
+	cmp al, 13
+	ja .setSignRestorAl
+.loopSkipWhiteSpaceInc:
+	inc rdi
+	jmp .loopSkipWhiteSpace
+.setSignRestorAl:
+	add al, 9
+.setSign:
+	mov byte [rsp + 16], 1
+	cmp al, '-'
+	jne .skipPositifChar
+	mov byte [rsp + 16], -1
+	inc rdi
+	jmp .getLenOfBase
+.skipPositifChar:
+	cmp al, '+'
+	jne .getLenOfBase
+	inc rdi
+.getLenOfBase:
+	int 0x30
 	jmp .done
 .error:
-	mov rax, 1
+	mov rax, 0
 .done:
 	mov rsp, rbp
 	pop rbp
