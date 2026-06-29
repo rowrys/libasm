@@ -2,8 +2,10 @@ bits 64
 global ft_atoi_base
 global _start
 
+; extern ft_strlen
 ; extern ft_bzero
 %include "ft_bzero.asm"
+%include "ft_strlen.asm"
 
 %define BUFFER_SIZE 256
 
@@ -63,7 +65,7 @@ ft_atoi_base:
 	test dl, dl
 	jne .error
 	
-	mov byte [r8], al	; put in buffer base[i]
+	mov byte [r8], cl	; put in buffer base[i]
 
 	inc rcx
 	jmp .loopInitBuffer
@@ -96,7 +98,6 @@ ft_atoi_base:
 	jne .getLenOfBase
 	inc rdi
 .getLenOfBase:
-	int 0x30
 	jmp .done
 .error:
 	mov rax, 0
