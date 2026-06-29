@@ -10,7 +10,7 @@ global _start
 %define BUFFER_SIZE 256
 
 section .rodata
-	strr db "     -100", 0
+	strr db "     100", 0
 	base db "0123456789ABCDEF", 0
 ;
 ;on the stack:
@@ -69,7 +69,8 @@ ft_atoi_base:
 	test dl, dl
 	jne .error
 	
-	mov byte [r8], cl	; put in buffer base[i]
+	lea rdx, [rcx + 1]
+	mov byte [r8], dl	; put in buffer[str[i]] = i + 1
 
 	inc rcx
 	jmp .loopInitBuffer
@@ -112,13 +113,14 @@ ft_atoi_base:
 	lea rcx, [rsp + 16]		; load in cl buffer[str[i]]
 	add rcx, rax
 	movzx rcx, byte [rcx]
-	; test cl, cl
-	; je .error				; if cl == 0, the current char str[i] isnt present in the base
+	test cl, cl
+	je .error				; if cl == 0, the current char str[i] isnt present in the base
 
 	mov rax, r10
 	mul edx					; result * r8 (str lenght)
 	mov rdx, rax
 
+	dec ecx					; dec buffer[str[i]] because we store i + 1
 	add edx, ecx
 
 	inc rdi
