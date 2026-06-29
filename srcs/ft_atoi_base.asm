@@ -24,6 +24,7 @@ section .text
 ;
 ;rdi -> str
 ;rsi -> base
+;r10 -> len of base
 ;
 ft_atoi_base:
 	push rbp
@@ -35,6 +36,9 @@ ft_atoi_base:
 	lea rdi, [rsp + 16]		; lea buffer
 	mov rsi, BUFFER_SIZE
 	call ft_bzero
+	mov rdi, [rsp]			; get len of base an stor it into r10 for later
+	call ft_strlen
+	mov r10, rax
 	mov rsi, [rsp]			; mov second param
 	mov rdi, [rsp + 8]		; mov first param
 	xor ecx, ecx
@@ -98,10 +102,37 @@ ft_atoi_base:
 	jne .getLenOfBase
 	inc rdi
 .getLenOfBase:
+	xor eax, eax	; reste rax to only use al
+	xor edx, edx	; store the result of the main loop
+.mainLoop:
+	mov al, byte [rdi]		; load in al str[i]
+	test al, al
+	je .endMainLoop
+
+	lea rcx, [rsp + 16]		; load in cl buffer[str[i]]
+	add rcx, rax
+	movzx rcx, byte [rcx]
+	; test cl, cl
+	; je .error				; if cl == 0, the current char str[i] isnt present in the base
+
+	mov rax, r10
+	mul edx					; result * r8 (str lenght)
+	mov rdx, rax
+
+	add edx, ecx
+
+	inc rdi
+	jmp .mainLoop
+.endMainLoop:
+	mov rax, rdx
 	jmp .done
 .error:
 	mov rax, 0
 .done:
+	mov rcx, rax
+	neg rcx
+	cmp byte [rsp + 16], -1
+	cmove rax, rcx
 	mov rsp, rbp
 	pop rbp
 	ret
