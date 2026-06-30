@@ -1,8 +1,6 @@
 bits 64
 global ft_atoi_base
-global _start
 
-extern ft_strlen
 extern ft_bzero
 
 %define BUFFER_SIZE 256
@@ -31,16 +29,14 @@ ft_atoi_base:
 	lea rdi, [rsp + 16]		; lea buffer
 	mov rsi, BUFFER_SIZE
 	call ft_bzero
-	mov rdi, [rsp]			; get len of base an stor it into r10 for later
-	call ft_strlen
-	mov r10, rax
 	mov rsi, [rsp]			; mov second param
 	mov rdi, [rsp + 8]		; mov first param
 	xor ecx, ecx
+	xor eax, eax			; reset rax to only use al to use lea tricks
 .loopInitBuffer:
 	mov al, byte [rsi + rcx]
 	test al, al
-	je .endLoopInitBuffer
+	je .checkMinBaseLen
 
 	; check whitespace
 	cmp al, ' '
@@ -58,8 +54,7 @@ ft_atoi_base:
 	add al, 43		; restore al
 	
 	;check doublon
-	lea r8, [rsp + 16]	; lea buffer
-	add r8b, al
+	lea r8, [rsp + 16 + rax]	; lea buffer[al]
 	mov dl, byte [r8]
 	test dl, dl
 	jne .error
@@ -69,9 +64,10 @@ ft_atoi_base:
 
 	inc rcx
 	jmp .loopInitBuffer
-.endLoopInitBuffer:
+.checkMinBaseLen:
 	cmp rcx, 2			; check if lenght of base is greater than 1 otherwise jmp .error
 	jb .error
+	mov r10, rcx		; store in r10 base len
 .loopSkipWhiteSpace:
 	mov al, byte [rdi]
 
@@ -92,13 +88,13 @@ ft_atoi_base:
 	jne .skipPositifChar
 	mov byte [rsp + 16], -1
 	inc rdi
-	jmp .getLenOfBase
+	jmp .prologueMainLoop
 .skipPositifChar:
 	cmp al, '+'
-	jne .getLenOfBase
+	jne .prologueMainLoop
 	inc rdi
-.getLenOfBase:
-	xor eax, eax	; reste rax to only use al
+.prologueMainLoop:
+	xor eax, eax	; reset rax to only use al
 	xor edx, edx	; store the result of the main loop
 .mainLoop:
 	mov al, byte [rdi]		; load in al str[i]
@@ -115,8 +111,7 @@ ft_atoi_base:
 	mul edx					; result * r8 (str lenght)
 	mov rdx, rax
 
-	dec ecx					; dec buffer[str[i]] because we store i + 1
-	add edx, ecx
+	lea edx, [edx + ecx - 1]	; dec buffer[str[i]] because we store i + 1
 
 	inc rdi
 	jmp .mainLoop
