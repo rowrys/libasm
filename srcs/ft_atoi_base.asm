@@ -2,16 +2,11 @@ bits 64
 global ft_atoi_base
 global _start
 
-; extern ft_strlen
-; extern ft_bzero
-%include "ft_bzero.asm"
-%include "ft_strlen.asm"
+extern ft_strlen
+extern ft_bzero
 
 %define BUFFER_SIZE 256
 
-section .rodata
-	strr db "     100", 0
-	base db "0123456789ABCDEF", 0
 ;
 ;on the stack:
 ;	[rsp] = rsi
@@ -138,12 +133,3 @@ ft_atoi_base:
 	mov rsp, rbp
 	pop rbp
 	ret
-
-_start:
-	lea rdi, strr
-	lea rsi, base
-	call ft_atoi_base
-
-	mov rdi, rax
-	mov rax, 60
-	syscall

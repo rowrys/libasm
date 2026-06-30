@@ -113,6 +113,39 @@ void test_read(void)
     close(fd2);
 }
 
+
+void test_atoi_base_result(char *str, char *base, int expected)
+{
+    int res = ft_atoi_base(str, base);
+
+    printf("ft_atoi_base(\"%s\", \"%s\") = %d", str, base, res);
+    if (res == expected)
+        printf(" ✅\n");
+    else
+        printf(" ❌ (expected %d)\n", expected);
+}
+
+void    test_atoi_base(void)
+{
+    test_atoi_base_result("42", "0123456789", 42);
+    test_atoi_base_result("-42", "0123456789", -42);
+    test_atoi_base_result("   +42", "0123456789", 42);
+    test_atoi_base_result("--42", "0123456789", 0);
+    test_atoi_base_result("---42", "0123456789", 0);
+    test_atoi_base_result("101010", "01", 42);
+    test_atoi_base_result("-101010", "01", -42);
+    test_atoi_base_result("2a", "0123456789abcdef", 42);
+    test_atoi_base_result("-2a", "0123456789abcdef", -42);
+    test_atoi_base_result("FF", "0123456789ABCDEF", 255);
+    test_atoi_base_result("zz", "abcdefghijklmnopqrstuvwxyz", 675);
+    test_atoi_base_result("42", "", 0);
+    test_atoi_base_result("42", "0", 0);
+    test_atoi_base_result("42", "00", 0);
+    test_atoi_base_result("42", "012340", 0);
+    test_atoi_base_result("42", "01+234", 0);
+    test_atoi_base_result("42", "01-234", 0);
+}
+
 int main(void)
 {
     test_strlen();
@@ -121,6 +154,7 @@ int main(void)
     test_strdup();
     test_write();
     test_read();
+    test_atoi_base();
 
     return (0);
 }

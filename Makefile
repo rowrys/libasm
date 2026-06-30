@@ -3,7 +3,7 @@ BIN = libasm
 ASM = nasm
 ASMFLAGS = -f elf64
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 INCLUDES = -I includes/
 SRCS_DIR = srcs/
 OBJ_DIR = .build/
@@ -13,6 +13,8 @@ SOURCES =	$(SRCS_DIR)ft_strlen.asm	\
 			$(SRCS_DIR)ft_strdup.asm	\
 			$(SRCS_DIR)ft_write.asm		\
 			$(SRCS_DIR)ft_read.asm		\
+			$(SRCS_DIR)ft_atoi_base.asm	\
+			$(SRCS_DIR)ft_bzero.asm		\
 
 SOURCES_TEST =	$(SOURCES)				\
 				main.c
