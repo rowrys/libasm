@@ -7,14 +7,15 @@ CFLAGS = -Wall -Wextra -Werror -g
 INCLUDES = -I includes/
 SRCS_DIR = srcs/
 OBJ_DIR = .build/
-SOURCES =	$(SRCS_DIR)ft_strlen.asm	\
-			$(SRCS_DIR)ft_strcpy.asm	\
-			$(SRCS_DIR)ft_strcmp.asm	\
-			$(SRCS_DIR)ft_strdup.asm	\
-			$(SRCS_DIR)ft_write.asm		\
-			$(SRCS_DIR)ft_read.asm		\
-			$(SRCS_DIR)ft_atoi_base.asm	\
-			$(SRCS_DIR)ft_bzero.asm		\
+SOURCES =	$(SRCS_DIR)ft_strlen.asm				\
+			$(SRCS_DIR)ft_strcpy.asm				\
+			$(SRCS_DIR)ft_strcmp.asm				\
+			$(SRCS_DIR)ft_strdup.asm				\
+			$(SRCS_DIR)ft_write.asm					\
+			$(SRCS_DIR)ft_read.asm					\
+			$(SRCS_DIR)ft_atoi_base.asm				\
+			$(SRCS_DIR)ft_bzero.asm					\
+			$(SRCS_DIR)lst/ft_list_push_front.asm	\
 
 SOURCES_TEST =	$(SOURCES)				\
 				main.c
@@ -26,16 +27,14 @@ all: $(NAME)
 
 test: $(BIN)
 
-$(NAME): make_dir $(OBJS)
+$(NAME): $(OBJS)
 	ar rcs $(NAME) $(OBJS)
 
-$(BIN): make_dir $(OBJS_TEST)
+$(BIN): $(OBJS_TEST)
 	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS_TEST) -o $(BIN)
 
-make_dir:
-	@mkdir -p .build/
-
 $(OBJ_DIR)%.o: $(SRCS_DIR)%.asm
+	@mkdir -p $(@D)
 	$(ASM) $(ASMFLAGS) $< -o $@
 
 gdb: $(NAME)

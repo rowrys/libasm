@@ -1,4 +1,5 @@
 
+#include "includes/libasm.h"
 #include "libasm.h"
 
 #include <stdio.h>
@@ -152,6 +153,24 @@ void    test_atoi_base(void)
     test_atoi_base_result("42", "01-234", 0);
 }
 
+void	test_lst_push_front(void)
+{
+	t_list*	lst;
+	int		i;
+	int		y;
+
+	lst = NULL;
+	ft_list_push_front(NULL, &i);
+	i = 10;
+	ft_list_push_front(&lst, &i);
+	y = 20;
+	ft_list_push_front(&lst, &y);
+	while (lst) {
+		printf("me?{%p}, data{%d}, next{%p}\n", lst, *(int*)(lst->data), lst->next);
+		lst = lst->next;
+	}
+}
+
 int main(void)
 {
     test_strlen();
@@ -161,6 +180,7 @@ int main(void)
     test_write();
     test_read();
     test_atoi_base();
+    test_lst_push_front();
 
     return (0);
 }
