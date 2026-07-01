@@ -32,9 +32,8 @@ ft_atoi_base:
 	mov rsi, [rsp]			; mov second param
 	mov rdi, [rsp + 8]		; mov first param
 	xor ecx, ecx
-	xor eax, eax			; reset rax to only use al to use lea tricks
 .loopInitBuffer:
-	mov al, byte [rsi + rcx]
+	movzx rax, byte [rsi + rcx]
 	test al, al
 	je .checkMinBaseLen
 
@@ -54,13 +53,12 @@ ft_atoi_base:
 	add al, 43		; restore al
 	
 	;check doublon
-	lea r8, [rsp + 16 + rax]	; lea buffer[al]
-	mov dl, byte [r8]
+	movzx rdx, byte [rsp + 16 + rax]
 	test dl, dl
 	jne .error
 	
 	lea rdx, [rcx + 1]
-	mov byte [r8], dl	; put in buffer[str[i]] = i + 1
+	mov byte [rsp + 16 + rax], dl	; put in buffer[str[i]] = i + 1
 
 	inc rcx
 	jmp .loopInitBuffer
@@ -94,21 +92,18 @@ ft_atoi_base:
 	jne .prologueMainLoop
 	inc rdi
 .prologueMainLoop:
-	xor eax, eax	; reset rax to only use al
 	xor edx, edx	; store the result of the main loop
 .mainLoop:
-	mov al, byte [rdi]		; load in al str[i]
+	movzx rax, byte [rdi]		; load in al str[i]
 	test al, al
 	je .endMainLoop
 
-	lea rcx, [rsp + 16]		; load in cl buffer[str[i]]
-	add rcx, rax
-	movzx rcx, byte [rcx]
+	movzx rcx, byte [rsp + 16 + rax]
 	test cl, cl
 	je .error				; if cl == 0, the current char str[i] isnt present in the base
 
 	mov rax, r10
-	mul edx					; result * r8 (str lenght)
+	mul edx					; result * r10 (str lenght)
 	mov rdx, rax
 
 	lea edx, [edx + ecx - 1]	; dec buffer[str[i]] because we store i + 1

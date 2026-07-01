@@ -132,6 +132,12 @@ void    test_atoi_base(void)
     test_atoi_base_result("   +42", "0123456789", 42);
     test_atoi_base_result("--42", "0123456789", 0);
     test_atoi_base_result("---42", "0123456789", 0);
+
+    test_atoi_base_result("2147483647", "0123456789", 2147483647);
+    test_atoi_base_result("-2147483648", "0123456789", -2147483648);
+    test_atoi_base_result("-2147483649", "0123456789", 2147483647);
+    test_atoi_base_result("2147483648", "0123456789", -2147483648);
+    
     test_atoi_base_result("101010", "01", 42);
     test_atoi_base_result("-101010", "01", -42);
     test_atoi_base_result("2a", "0123456789abcdef", 42);
