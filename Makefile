@@ -16,6 +16,7 @@ SOURCES =	$(SRCS_DIR)ft_strlen.asm				\
 			$(SRCS_DIR)ft_atoi_base.asm				\
 			$(SRCS_DIR)ft_bzero.asm					\
 			$(SRCS_DIR)lst/ft_list_push_front.asm	\
+			$(SRCS_DIR)lst/ft_list_size.asm			\
 
 SOURCES_TEST =	$(SOURCES)				\
 				main.c

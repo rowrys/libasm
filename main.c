@@ -160,11 +160,13 @@ void	test_lst_push_front(void)
 	int		y;
 
 	lst = NULL;
+    printf("lst_size{%lu}\n", ft_list_size(lst));
 	ft_list_push_front(NULL, &i);
 	i = 10;
 	ft_list_push_front(&lst, &i);
 	y = 20;
 	ft_list_push_front(&lst, &y);
+    printf("lst_size{%lu}\n", ft_list_size(lst));
 	while (lst) {
 		printf("me?{%p}, data{%d}, next{%p}\n", lst, *(int*)(lst->data), lst->next);
 		lst = lst->next;
