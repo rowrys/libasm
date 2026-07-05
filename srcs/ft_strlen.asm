@@ -21,7 +21,7 @@ ft_strlen:
 .loopAlign:
 	test rax, 7
 	je .loopSwar
-	mov cl, byte [rax]
+	movzx rcx, byte [rax]
 	test cl, cl
 	je .done
 	inc rax
@@ -37,7 +37,7 @@ ft_strlen:
 	add rax, 8
 	jmp .loopSwar
 .loopRest:
-	mov cl, byte [rax]
+	movzx rcx, byte [rax]
 	test cl, cl
 	je .done
 	inc rax
