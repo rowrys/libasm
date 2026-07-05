@@ -156,20 +156,28 @@ void    test_atoi_base(void)
 void	test_lst_push_front(void)
 {
 	t_list*	lst;
-	int		i;
-	int		y;
+	t_list*	tmp;
 
 	lst = NULL;
     printf("lst_size{%lu}\n", ft_list_size(lst));
-	ft_list_push_front(NULL, &i);
-	i = 10;
-	ft_list_push_front(&lst, &i);
-	y = 20;
-	ft_list_push_front(&lst, &y);
+	ft_list_push_front(NULL, "00");
+	ft_list_push_front(&lst, "20");
+	ft_list_push_front(&lst, "30");
+	ft_list_push_front(&lst, "10");
+	ft_list_push_front(&lst, "50");
+	ft_list_push_front(&lst, "20");
     printf("lst_size{%lu}\n", ft_list_size(lst));
-	while (lst) {
-		printf("me?{%p}, data{%d}, next{%p}\n", lst, *(int*)(lst->data), lst->next);
-		lst = lst->next;
+	tmp = lst;
+	while (tmp) {
+		printf("me?{%p}, data{%s}, next{%p}\n", tmp, (char*)(tmp->data), tmp->next);
+		tmp = tmp->next;
+	}
+	printf("\n\n\n");
+	ft_list_sort(&lst, &ft_strcmp);
+	tmp = lst;
+	while (tmp) {
+		printf("me?{%p}, data{%s}, next{%p}\n", tmp, (char*)(tmp->data), tmp->next);
+		tmp = tmp->next;
 	}
 }
 

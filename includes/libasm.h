@@ -19,5 +19,6 @@ void	ft_bzero(void* ptr, size_t n);
 int		ft_atoi_base(char* str, char* base);
 void	ft_list_push_front(t_list** begin_list, void* data);
 size_t	ft_list_size(t_list* begin_list);
+void	ft_list_sort(t_list** begin_list, int (*cmp)());
 
 #endif
