@@ -153,6 +153,15 @@ void    test_atoi_base(void)
     test_atoi_base_result("42", "01-234", 0);
 }
 
+static void
+free_cnt(void* data) {
+    t_list* lst;
+
+    lst = data;
+    printf("I free lst->data: {%s}!\n", (char *)lst->data);
+    free(lst);
+}
+
 void	test_lst_push_front(void)
 {
 	t_list*	lst;
@@ -163,7 +172,9 @@ void	test_lst_push_front(void)
 	ft_list_push_front(NULL, "00");
 	ft_list_push_front(&lst, "20");
 	ft_list_push_front(&lst, "30");
+	ft_list_push_front(&lst, "20");
 	ft_list_push_front(&lst, "10");
+	ft_list_push_front(&lst, "40");
 	ft_list_push_front(&lst, "50");
 	ft_list_push_front(&lst, "20");
     printf("lst_size{%lu}\n", ft_list_size(lst));
@@ -174,6 +185,12 @@ void	test_lst_push_front(void)
 	}
 	printf("\n\n\n");
 	ft_list_sort(&lst, &ft_strcmp);
+	tmp = lst;
+	while (tmp) {
+		printf("me?{%p}, data{%s}, next{%p}\n", tmp, (char*)(tmp->data), tmp->next);
+		tmp = tmp->next;
+	}
+    ft_list_remove_if(&lst, "20", ft_strcmp, free_cnt);
 	tmp = lst;
 	while (tmp) {
 		printf("me?{%p}, data{%s}, next{%p}\n", tmp, (char*)(tmp->data), tmp->next);
