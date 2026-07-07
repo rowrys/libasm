@@ -1,8 +1,7 @@
 bits 64
 global ft_strcpy
 
-%define lowMask 0x0101010101010101
-%define highMask 0x8080808080808080
+%include "srcs/swar.inc"
 
 section .text
 ;
@@ -11,6 +10,7 @@ section .text
 ;
 
 ft_strcpy:
+	can_align_both rdi, rsi, rax, r8, .loopAlign
 	mov rax, rdi
 	mov r8, rsi
 	mov r9, lowMask

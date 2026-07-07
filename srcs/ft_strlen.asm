@@ -1,8 +1,7 @@
 bits 64
 global ft_strlen
 
-%define lowMask 0x0101010101010101
-%define highMask 0x8080808080808080
+%include "srcs/swar.inc"
 
 section .text
 ;

@@ -1,8 +1,7 @@
 bits 64
 global ft_strcmp
 
-%define lowMask 0x0101010101010101
-%define highMask 0x8080808080808080
+%include "srcs/swar.inc"
 
 section .text
 ;
@@ -11,6 +10,7 @@ section .text
 ;
 
 ft_strcmp:
+	can_align_both rdi, rsi, rax, rcx, .loopRest
 	mov r9, lowMask
 	mov r10, highMask
 .loopAlign:
