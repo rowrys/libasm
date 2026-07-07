@@ -7,14 +7,14 @@ CFLAGS = -Wall -Wextra -Werror -g
 INCLUDES = -I includes/
 SRCS_DIR = srcs/
 OBJ_DIR = .build/
-SOURCES =	$(SRCS_DIR)ft_strlen.asm				\
-			$(SRCS_DIR)ft_strcpy.asm				\
-			$(SRCS_DIR)ft_strcmp.asm				\
-			$(SRCS_DIR)ft_strdup.asm				\
-			$(SRCS_DIR)ft_write.asm					\
-			$(SRCS_DIR)ft_read.asm					\
-			$(SRCS_DIR)ft_atoi_base.asm				\
-			$(SRCS_DIR)ft_bzero.asm					\
+SOURCES =	$(SRCS_DIR)str/ft_strlen.asm			\
+			$(SRCS_DIR)str/ft_strcpy.asm			\
+			$(SRCS_DIR)str/ft_strcmp.asm			\
+			$(SRCS_DIR)str/ft_strdup.asm			\
+			$(SRCS_DIR)io/ft_write.asm				\
+			$(SRCS_DIR)io/ft_read.asm				\
+			$(SRCS_DIR)stdlib/ft_atoi_base.asm		\
+			$(SRCS_DIR)stdlib/ft_bzero.asm			\
 			$(SRCS_DIR)lst/ft_list_push_front.asm	\
 			$(SRCS_DIR)lst/ft_list_size.asm			\
 			$(SRCS_DIR)lst/ft_list_sort.asm			\
