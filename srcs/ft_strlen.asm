@@ -1,8 +1,7 @@
 bits 64
 global ft_strlen
 
-%define lowMask 0x0101010101010101
-%define highMask 0x8080808080808080
+%include "srcs/swar.inc"
 
 section .text
 ;
@@ -21,7 +20,7 @@ ft_strlen:
 .loopAlign:
 	test rax, 7
 	je .loopSwar
-	mov cl, byte [rax]
+	movzx rcx, byte [rax]
 	test cl, cl
 	je .done
 	inc rax
@@ -37,7 +36,7 @@ ft_strlen:
 	add rax, 8
 	jmp .loopSwar
 .loopRest:
-	mov cl, byte [rax]
+	movzx rcx, byte [rax]
 	test cl, cl
 	je .done
 	inc rax
