@@ -1,7 +1,8 @@
 bits 64
 global ft_strlen
 
-%define pageSize 4096
+%include "srcs/alignment.inc"
+
 %define vecSize 16
 
 section .text
@@ -12,15 +13,9 @@ section .text
 ft_strlen:
 	; check cross page if it cross do bytes/bytes
 	mov rax, rdi
-	mov rcx, rdi
-	and rcx, (pageSize - 1)
-	add rcx, vecSize
-	cmp rcx, pageSize
-	ja .loopRest
+	check_cross_page rdi, rcx, vecSize, .loopRest
+	pxor xmm2, xmm2
 .align:
-	; set mask vec
-	pxor xmm2, xmm2				; disable all bits of xmm2
-	; make the first read, unalign to align it.
 	movdqu xmm0, [rax]
 	pcmpeqb xmm0, xmm2			; set all byte to NULL, except NULL byte, NULL byte is set to 0xFF
 	pmovmskb ecx, xmm0
@@ -33,7 +28,7 @@ ft_strlen:
 	add rax, rdx
 .loopSimd:
 	movdqa xmm0, [rax]
-	pcmpeqb xmm0, xmm2			; set all byte to NULL, except NULL byte, NULL byte is set to 0xFF
+	pcmpeqb xmm0, xmm2
 	pmovmskb ecx, xmm0
 	test ecx, ecx
 	jne .loopRest
