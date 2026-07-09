@@ -10,7 +10,7 @@ section .text
 ;
 
 ft_strcpy:
-	can_align_both rdi, rsi, rax, r8, .loopAlign
+	can_align_both rdi, rsi, rax, r8, .cant_align
 	mov rax, rdi
 	mov r8, rsi
 	mov r9, lowMask
@@ -38,6 +38,9 @@ ft_strcpy:
 	add rax, 8
 	add r8, 8
 	jmp .loopSwar
+.cant_align:
+	mov rax, rdi
+	mov r8, rsi
 .loopRest:
 	movzx rcx, byte [r8]
 	mov byte [rax], cl

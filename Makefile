@@ -7,9 +7,9 @@ CFLAGS = -Wall -Wextra -Werror -g
 INCLUDES = -I includes/
 SRCS_DIR = srcs/
 OBJ_DIR = .build/
-SOURCES =	$(SRCS_DIR)str/ft_strlen.asm			\
-			$(SRCS_DIR)str/ft_strcpy.asm			\
-			$(SRCS_DIR)str/ft_strcmp.asm			\
+SOURCES =	$(SRCS_DIR)str/strlen/ft_strlen_sse2.asm\
+			$(SRCS_DIR)str/strcpy/ft_strcpy.asm		\
+			$(SRCS_DIR)str/strcmp/ft_strcmp.asm		\
 			$(SRCS_DIR)str/ft_strdup.asm			\
 			$(SRCS_DIR)io/ft_write.asm				\
 			$(SRCS_DIR)io/ft_read.asm				\

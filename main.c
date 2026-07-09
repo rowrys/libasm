@@ -11,10 +11,13 @@
 void test_strlen(void)
 {
     char *str = "Hello World";
+    char *str2 = "Hello World, I love swar, but simd it pretty cool too but more complex";
 
     printf("=== FT_STRLEN ===\n");
     printf("strlen    : %zu\n", strlen(str));
     printf("ft_strlen : %zu\n\n", ft_strlen(str));
+    printf("strlen    : %zu\n", strlen(str2));
+    printf("ft_strlen : %zu\n\n", ft_strlen(str2));
 }
 
 void test_strcmp(void)
