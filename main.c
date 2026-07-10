@@ -38,6 +38,11 @@ void test_strcmp(void)
         strcmp("abd", "abc"));
     printf("ft_strcmp(\"abd\", \"abc\") = %d\n\n",
         ft_strcmp("abd", "abc"));
+
+    printf("strcmp(\"abcdefghijklmnopqrstuvwxyz\", \"abcdefghijklmnopqrstuvwxyz\")    = %d\n",
+        strcmp("abcdefghijklmnopqrstuvwxyz", "abcdefghijklmnopqrstuvwxyz"));
+    printf("ft_strcmp(\"abcdefghijklmnopqrstuvwxyz\", \"abcdefghijklmnopqrstuvwxyz\") = %d\n\n",
+        ft_strcmp("abcdefghijklmnopqrstuvwxyz", "abcdefghijklmnopqrstuvwxyz"));  
 }
 
 void test_strcpy(void)

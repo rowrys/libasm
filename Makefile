@@ -9,7 +9,7 @@ SRCS_DIR = srcs/
 OBJ_DIR = .build/
 SOURCES =	$(SRCS_DIR)str/strlen/ft_strlen_sse2.asm\
 			$(SRCS_DIR)str/strcpy/ft_strcpy_sse2.asm\
-			$(SRCS_DIR)str/strcmp/ft_strcmp.asm		\
+			$(SRCS_DIR)str/strcmp/ft_strcmp_sse2.asm\
 			$(SRCS_DIR)str/ft_strdup.asm			\
 			$(SRCS_DIR)io/ft_write.asm				\
 			$(SRCS_DIR)io/ft_read.asm				\
