@@ -10,7 +10,7 @@ section .text
 ;
 
 ft_strcpy:
-	can_align_both rdi, rsi, rax, r8, .cant_align
+	can_align_both rdi, rsi, rax, r8, 8, .cant_align
 	mov rax, rdi
 	mov r8, rsi
 	mov r9, lowMask

@@ -42,15 +42,24 @@ void test_strcmp(void)
 
 void test_strcpy(void)
 {
+    const char str[] = "Hello, i just want to test my simd(sse2 for stream simd extention 2) ft_strcpy.";
     char dst1[100];
     char dst2[100];
+    char dst3[100];
+    char dst4[100];
 
     strcpy(dst1, "Hello");
     ft_strcpy(dst2, "Hello");
 
+    strcpy(dst3, str);
+    ft_strcpy(dst4, str);
+
+
     printf("=== FT_STRCPY ===\n");
     printf("strcpy    : %s\n", dst1);
     printf("ft_strcpy : %s\n\n", dst2);
+    printf("strcpy    : %s\n", dst3);
+    printf("ft_strcpy : %s\n\n", dst4);
 }
 
 void test_strdup(void)

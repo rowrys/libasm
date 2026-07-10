@@ -13,8 +13,11 @@ section .text
 ft_strlen:
 	; check cross page if it cross do bytes/bytes
 	mov rax, rdi
-	check_cross_page rdi, rcx, vecSize, .loopRest
+	mov rcx, rdi
+	check_cross_page rcx, vecSize, .loopRest
 	pxor xmm2, xmm2
+	test rdi, (vecSize - 1)
+	je .loopSimd
 .align:
 	movdqu xmm0, [rax]
 	pcmpeqb xmm0, xmm2			; set all byte to NULL, except NULL byte, NULL byte is set to 0xFF
@@ -23,7 +26,7 @@ ft_strlen:
 	jne .loopRest
 	mov rcx, rdi
 	and rcx, (vecSize - 1)
-	mov rdx, 16
+	mov rdx, vecSize
 	sub rdx, rcx
 	add rax, rdx
 .loopSimd:
