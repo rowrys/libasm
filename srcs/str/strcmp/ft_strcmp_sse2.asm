@@ -1,9 +1,7 @@
 bits 64
 global ft_strcmp
 
-%include "srcs/alignment.inc"
-
-%define vecSize 16
+%include "srcs/sse2.inc"
 
 section .text
 ;
