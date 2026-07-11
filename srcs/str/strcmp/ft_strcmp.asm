@@ -10,7 +10,7 @@ section .text
 ;
 
 ft_strcmp:
-	can_align_both rdi, rsi, rax, rcx, .loopRest
+	can_align_both rdi, rsi, rax, rcx, 8, .loopRest
 	mov r9, lowMask
 	mov r10, highMask
 .loopAlign:

@@ -11,10 +11,13 @@
 void test_strlen(void)
 {
     char *str = "Hello World";
+    char *str2 = "Hello World, I love swar, but simd it pretty cool too but more complex";
 
     printf("=== FT_STRLEN ===\n");
     printf("strlen    : %zu\n", strlen(str));
     printf("ft_strlen : %zu\n\n", ft_strlen(str));
+    printf("strlen    : %zu\n", strlen(str2));
+    printf("ft_strlen : %zu\n\n", ft_strlen(str2));
 }
 
 void test_strcmp(void)
@@ -35,19 +38,33 @@ void test_strcmp(void)
         strcmp("abd", "abc"));
     printf("ft_strcmp(\"abd\", \"abc\") = %d\n\n",
         ft_strcmp("abd", "abc"));
+
+    printf("strcmp(\"abcdefghijklmnopqrstuvwxyz\", \"abcdefghijklmnopqrstuvwxyz\")    = %d\n",
+        strcmp("abcdefghijklmnopqrstuvwxyz", "abcdefghijklmnopqrstuvwxyz"));
+    printf("ft_strcmp(\"abcdefghijklmnopqrstuvwxyz\", \"abcdefghijklmnopqrstuvwxyz\") = %d\n\n",
+        ft_strcmp("abcdefghijklmnopqrstuvwxyz", "abcdefghijklmnopqrstuvwxyz"));  
 }
 
 void test_strcpy(void)
 {
+    const char str[] = "Hello, i just want to test my simd(sse2 for stream simd extention 2) ft_strcpy.";
     char dst1[100];
     char dst2[100];
+    char dst3[100];
+    char dst4[100];
 
     strcpy(dst1, "Hello");
     ft_strcpy(dst2, "Hello");
 
+    strcpy(dst3, str);
+    ft_strcpy(dst4, str);
+
+
     printf("=== FT_STRCPY ===\n");
     printf("strcpy    : %s\n", dst1);
     printf("ft_strcpy : %s\n\n", dst2);
+    printf("strcpy    : %s\n", dst3);
+    printf("ft_strcpy : %s\n\n", dst4);
 }
 
 void test_strdup(void)

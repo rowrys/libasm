@@ -1,16 +1,13 @@
-NAME = libasm.a
-BIN = libasm
-ASM = nasm
-ASMFLAGS = -f elf64
-CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
-INCLUDES = -I includes/
-SRCS_DIR = srcs/
-OBJ_DIR = .build/
-SOURCES =	$(SRCS_DIR)str/ft_strlen.asm			\
-			$(SRCS_DIR)str/ft_strcpy.asm			\
-			$(SRCS_DIR)str/ft_strcmp.asm			\
-			$(SRCS_DIR)str/ft_strdup.asm			\
+NAME := libasm.a
+BIN := libasm
+ASM := nasm
+ASMFLAGS := -f elf64
+CC := cc
+CFLAGS := -Wall -Wextra -Werror -g
+INCLUDES := -I includes/
+SRCS_DIR := srcs/
+OBJ_DIR := .build/
+SOURCES :=	$(SRCS_DIR)str/ft_strdup.asm			\
 			$(SRCS_DIR)io/ft_write.asm				\
 			$(SRCS_DIR)io/ft_read.asm				\
 			$(SRCS_DIR)stdlib/ft_atoi_base.asm		\
@@ -18,27 +15,35 @@ SOURCES =	$(SRCS_DIR)str/ft_strlen.asm			\
 			$(SRCS_DIR)lst/ft_list_push_front.asm	\
 			$(SRCS_DIR)lst/ft_list_size.asm			\
 			$(SRCS_DIR)lst/ft_list_sort.asm			\
-			$(SRCS_DIR)lst/ft_list_remove_if.asm	\
+			$(SRCS_DIR)lst/ft_list_remove_if.asm
 
-SOURCES_TEST =	$(SOURCES)				\
-				main.c
+ifeq ($(MAKECMDGOALS),sse2)
+SOURCES +=	$(SRCS_DIR)str/strlen/ft_strlen_sse2.asm	\
+			$(SRCS_DIR)str/strcpy/ft_strcpy_sse2.asm	\
+			$(SRCS_DIR)str/strcmp/ft_strcmp_sse2.asm
+else
+SOURCES +=	$(SRCS_DIR)str/strlen/ft_strlen.asm	\
+			$(SRCS_DIR)str/strcpy/ft_strcpy.asm	\
+			$(SRCS_DIR)str/strcmp/ft_strcmp.asm
+endif
 
-OBJS = $(SOURCES:$(SRCS_DIR)%.asm=$(OBJ_DIR)%.o)
-OBJS_TEST = $(SOURCES_TEST:$(SRCS_DIR)%.asm=$(OBJ_DIR)%.o)
+SOURCES_TEST = $(SOURCES) main.c
 
-all: $(NAME)
+OBJS := $(SOURCES:$(SRCS_DIR)%.asm=$(OBJ_DIR)%.o)
+OBJS_TEST := $(SOURCES_TEST:$(SRCS_DIR)%.asm=$(OBJ_DIR)%.o)
 
-test: $(BIN)
+all: $(NAME) $(BIN)
+sse2: $(NAME) $(BIN)
 
 $(NAME): $(OBJS)
-	ar rcs $(NAME) $(OBJS)
-
-$(BIN): $(OBJS_TEST)
-	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS_TEST) -o $(BIN)
+	ar rcs $@ $^
 
 $(OBJ_DIR)%.o: $(SRCS_DIR)%.asm
 	@mkdir -p $(@D)
 	$(ASM) $(ASMFLAGS) $< -o $@
+
+$(BIN): $(OBJS_TEST)
+	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS_TEST) -o $@
 
 gdb: $(NAME)
 	gdb $(NAME)
@@ -52,4 +57,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re gdb test
+.PHONY: all clean fclean re gdb sse2
