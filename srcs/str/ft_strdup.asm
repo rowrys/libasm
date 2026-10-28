@@ -14,8 +14,7 @@ ft_strdup:
 	push rbx
 	mov rbx, rdi
 	call ft_strlen
-	mov rdi, rax
-	inc rdi
+	lea rdi, [rax + 1]
 	call malloc wrt ..plt
 	test rax, rax
 	je .alloc_failed

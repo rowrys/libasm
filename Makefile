@@ -11,6 +11,7 @@ SOURCES :=	$(SRCS_DIR)str/ft_strdup.asm			\
 			$(SRCS_DIR)io/ft_write.asm				\
 			$(SRCS_DIR)io/ft_read.asm				\
 			$(SRCS_DIR)stdlib/ft_atoi_base.asm		\
+			$(SRCS_DIR)stdlib/ft_calloc.asm			\
 			$(SRCS_DIR)stdlib/ft_bzero.asm			\
 			$(SRCS_DIR)lst/ft_list_push_front.asm	\
 			$(SRCS_DIR)lst/ft_list_size.asm			\

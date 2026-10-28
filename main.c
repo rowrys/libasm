@@ -1,7 +1,9 @@
 
 #include "includes/libasm.h"
-#include "libasm.h"
 
+#include <stdint.h>
+#include <unistd.h>
+#include <stddef.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -215,16 +217,32 @@ void	test_lst_push_front(void)
 	}
 }
 
+void	test_calloc() {
+	printf("test_calloc\n");
+	uint16_t* res = ft_calloc(10, sizeof(uint16_t));
+	if (!res)
+		exit(1);
+	for (size_t i = 0; i < 10; i++) {
+		if (res[i] != 0)
+			printf("calloc not calloced...\n");
+	}
+	free(res);
+	uint16_t* of = ft_calloc(-1, 2);
+	if (of)
+		printf("ft_calloc of test failded...");
+}
+
 int main(void)
 {
-    test_strlen();
-    test_strcmp();
-    test_strcpy();
-    test_strdup();
-    test_write();
-    test_read();
-    test_atoi_base();
-    test_lst_push_front();
-
-    return (0);
+	test_strlen();
+	test_strcmp();
+	test_strcpy();
+	test_strdup();
+	test_write();
+	test_read();
+	test_atoi_base();
+	test_lst_push_front();
+	test_calloc();
+	
+	return (0);
 }
