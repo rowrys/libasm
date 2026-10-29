@@ -1,4 +1,5 @@
 
+#define LIB_ASM_SIMD
 #include "includes/libasm.h"
 
 #include <stdint.h>
@@ -232,17 +233,40 @@ void	test_calloc() {
 		printf("ft_calloc of test failded...");
 }
 
+void
+test_memchr() {
+    char *str = "1234567890abcdeftest?irjefndNJIFSEDRGNJIFERSDNJI";
+    char* sdf = ft_simd_memchr(str, '?', strlen(str));
+    printf("%s -> %s\n", str, sdf);
+
+    str = "test";
+    sdf = ft_simd_memchr(str, 't', strlen(str));
+    printf("%s -> %s\n", str, sdf);
+
+    str = "est";
+    sdf = ft_simd_memchr(str, 't', strlen(str));
+    printf("%s -> %s\n", str, sdf);
+
+    str = "esttsdftt";
+    sdf = ft_simd_memchr(str, 't', strlen(str));
+    printf("%s -> %s\n", str, sdf);
+
+    sdf = ft_simd_memchr("", 0, 1);
+    printf("\"\" -> %s\n", sdf);
+}
+
 int main(void)
 {
-	test_strlen();
-	test_strcmp();
-	test_strcpy();
-	test_strdup();
-	test_write();
-	test_read();
-	test_atoi_base();
-	test_lst_push_front();
-	test_calloc();
-	
+	// test_strlen();
+	// test_strcmp();
+	// test_strcpy();
+	// test_strdup();
+	// test_write();
+	// test_read();
+	// test_atoi_base();
+	// test_lst_push_front();
+	// test_calloc();
+    test_memchr();
+
 	return (0);
 }

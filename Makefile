@@ -21,7 +21,8 @@ SOURCES :=	$(SRCS_DIR)str/ft_strdup.asm			\
 ifeq ($(MAKECMDGOALS),sse2)
 SOURCES +=	$(SRCS_DIR)str/strlen/ft_strlen_sse2.asm	\
 			$(SRCS_DIR)str/strcpy/ft_strcpy_sse2.asm	\
-			$(SRCS_DIR)str/strcmp/ft_strcmp_sse2.asm
+			$(SRCS_DIR)str/strcmp/ft_strcmp_sse2.asm	\
+			$(SRCS_DIR)mem/memchr/ft_memchr_sse2.asm
 else
 SOURCES +=	$(SRCS_DIR)str/strlen/ft_strlen.asm	\
 			$(SRCS_DIR)str/strcpy/ft_strcpy.asm	\
