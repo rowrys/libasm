@@ -1,5 +1,5 @@
 
-#define LIB_ASM_SIMD
+// #define LIB_ASM_SIMD
 #include "includes/libasm.h"
 
 #include <stdint.h>
@@ -151,8 +151,11 @@ void    test_atoi_base(void)
     test_atoi_base_result("42", "0123456789", 42);
     test_atoi_base_result("-42", "0123456789", -42);
     test_atoi_base_result("   +42", "0123456789", 42);
-    test_atoi_base_result("--42", "0123456789", 0);
-    test_atoi_base_result("---42", "0123456789", 0);
+
+    test_atoi_base_result("--42", "0123456789", 42);
+    test_atoi_base_result("---42", "0123456789", -42);
+    test_atoi_base_result("--+-42", "0123456789", -42);
+    test_atoi_base_result("--+--42", "0123456789", 42);
 
     test_atoi_base_result("2147483647", "0123456789", 2147483647);
     test_atoi_base_result("-2147483648", "0123456789", -2147483648);
@@ -233,6 +236,7 @@ void	test_calloc() {
 		printf("ft_calloc of test failded...");
 }
 
+#ifdef LIB_ASM_SIMD
 void
 test_memchr() {
     char *str = "1234567890abcdeftest?irjefndNJIFSEDRGNJIFERSDNJI";
@@ -254,6 +258,7 @@ test_memchr() {
     sdf = ft_simd_memchr("", 0, 1);
     printf("\"\" -> %s\n", sdf);
 }
+#endif
 
 int main(void)
 {
@@ -263,10 +268,12 @@ int main(void)
 	// test_strdup();
 	// test_write();
 	// test_read();
-	// test_atoi_base();
+	test_atoi_base();
 	// test_lst_push_front();
 	// test_calloc();
-    test_memchr();
+    #ifdef LIB_ASM_SIMD
+        test_memchr();
+    #endif
 
 	return (0);
 }

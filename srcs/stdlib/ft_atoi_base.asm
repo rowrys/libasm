@@ -81,16 +81,19 @@ ft_atoi_base:
 .setSignRestorAl:
 	add al, 9
 .setSign:
-	mov byte [rsp + 16], 1
+	movzx rax, byte [rdi]		; load in al str[i]
+	movzx rcx, byte [rsp + 16]	; rcx => !(byte [rsp + 16])
+	xor rcx, 1
 	cmp al, '-'
 	jne .skipPositifChar
-	mov byte [rsp + 16], -1
+	mov byte [rsp + 16], cl
 	inc rdi
-	jmp .prologueMainLoop
+	jmp .setSign
 .skipPositifChar:
 	cmp al, '+'
 	jne .prologueMainLoop
 	inc rdi
+	jmp .setSign
 .prologueMainLoop:
 	xor edx, edx	; store the result of the main loop
 .mainLoop:
@@ -118,7 +121,7 @@ ft_atoi_base:
 .done:
 	mov rcx, rax
 	neg rcx
-	cmp byte [rsp + 16], -1
+	cmp byte [rsp + 16], 1
 	cmove rax, rcx
 	mov rsp, rbp
 	pop rbp
