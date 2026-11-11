@@ -262,15 +262,15 @@ test_memchr() {
 
 int main(void)
 {
-	// test_strlen();
-	// test_strcmp();
-	// test_strcpy();
-	// test_strdup();
-	// test_write();
-	// test_read();
+	test_strlen();
+	test_strcmp();
+	test_strcpy();
+	test_strdup();
+	test_write();
+	test_read();
 	test_atoi_base();
-	// test_lst_push_front();
-	// test_calloc();
+	test_lst_push_front();
+	test_calloc();
     #ifdef LIB_ASM_SIMD
         test_memchr();
     #endif
